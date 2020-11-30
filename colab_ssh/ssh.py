@@ -51,7 +51,6 @@ def config_ssh_server(public_key, msg):
         f.write("TCPKeepAlive yes\n")
         f.write("X11Forwarding yes\n")
         f.write("X11DisplayOffset 10\n")
-        # f.write("AuthorizedKeysFile /.ssh/authorized_keys\n")
         f.write("PubkeyAuthentication yes\n")
         f.write("IgnoreRhosts yes\n")
         f.write("HostbasedAuthentication no\n")

@@ -43,6 +43,7 @@ def config_argo_tunnel(msg):
     msg += "---\n"
     msg += "Command to connect to the ssh server:\n"
     msg += "✂️"*24 + "\n"
-    msg += f"ssh {ssh_common_options} root@{hostname}\n"
+    ssh_command = f"ssh {ssh_common_options} root@{hostname}"
+    msg += f"{ssh_command}\n"
     msg += "✂️"*24 + "\n"
-    return msg
+    return msg, ssh_command

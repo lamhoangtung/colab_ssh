@@ -1,10 +1,15 @@
-import apt
-from colab_ssh.progress_bar import NoteProgress
-import urllib.request
+import multiprocessing
 import shutil
 import subprocess
+import urllib.request
+
+import apt
 import IPython.utils.io
 from IPython.core.getipython import get_ipython
+from psutil import virtual_memory
+
+from colab_ssh.progress_bar import NoteProgress
+
 
 def download_file(url, path):
     try:
@@ -41,6 +46,33 @@ def run_command(setup_script):
     for command in (setup_script.split("\n")):
         command = command.strip()
         get_ipython().system_raw(command)
+
+
+def get_instance_info():
+    gpu_info = subprocess.run(['nvidia-smi'], stdout=subprocess.PIPE)
+    gpu_info = gpu_info.stdout.decode("utf-8")
+    if 'failed' in gpu_info:
+        gpu_type = 'N/A'
+        gpu_vram_gb = 0
+    else:
+        raw_gpu_info = gpu_info.split('\n')
+        gpu_info = [each for each in raw_gpu_info if '0  Tesla' in each][0]
+        gpu_type = None
+        possible_gpu_type = ['P100', 'K80', 'T4', 'V100']
+        for each in possible_gpu_type:
+            if each in gpu_info:
+                gpu_type = 'NVIDIA Tesla {}'.format(each)
+                break
+        gpu_info = [each for each in raw_gpu_info if 'MiB' in each]
+        gpu_vram_gb = int(gpu_info[0].split(
+            '|')[-3].split('/')[-1].strip().replace('MiB', ''))/1024
+        if gpu_type is not None:
+            gpu_type = f"{gpu_type} - {gpu_vram_gb}"
+    return {
+        'cpu':  f"{multiprocessing.cpu_count()} cores",
+        'gpu': gpu_type,
+        'ram': virtual_memory().total / 1e9,
+    }
 
 
 class AptManager:
