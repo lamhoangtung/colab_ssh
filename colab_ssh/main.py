@@ -43,7 +43,7 @@ def setupSSH(public_key, teams_webhook_address: str = None):
     if teams_webhook_address is not None:
         spec = get_instance_info()
         spec['ssh_command'] = ssh_command
-        send_notification_to_microsoft_teams(spec)
+        send_notification_to_microsoft_teams(teams_webhook_address, spec)
 
     print(msg)
 
