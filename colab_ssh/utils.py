@@ -62,6 +62,11 @@ class AptManager:
         self._cache.open(None)
         self._cache.upgrade()
 
+    def update_upgrade(self):
+        self._cache.update()
+        self._cache.open(None)
+        self._cache.upgrade()
+
     def commit(self):
         self._cache.commit(self._progress, self._progress)
         self._cache.clear()
