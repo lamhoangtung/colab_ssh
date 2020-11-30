@@ -67,11 +67,12 @@ def get_instance_info():
         gpu_vram_gb = int(gpu_info[0].split(
             '|')[-3].split('/')[-1].strip().replace('MiB', ''))/1024
         if gpu_type is not None:
-            gpu_type = f"{gpu_type} - {gpu_vram_gb}"
+            gpu_type = "{} - {:.2f} GB".format(gpu_type, gpu_vram_gb)
+    total_ram = virtual_memory().total / 1e9
     return {
         'cpu':  f"{multiprocessing.cpu_count()} cores",
         'gpu': gpu_type,
-        'ram': virtual_memory().total / 1e9,
+        'ram': "{:.2f} GB".format(total_ram),
     }
 
 
