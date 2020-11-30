@@ -25,7 +25,7 @@ def parse_public_key(public_key):
         return public_key
 
 
-def config_ssh_server(apt_manager, public_key, msg):
+def config_ssh_server(public_key, msg):
     apt_manager = AptManager()
     apt_manager.commit()
     apt_manager.update()
