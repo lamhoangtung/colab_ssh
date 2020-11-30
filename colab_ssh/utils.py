@@ -1,12 +1,10 @@
 import apt
 from colab_ssh.progress_bar import NoteProgress
-import apt.debfile
 import urllib.request
 import shutil
 import subprocess
-import pathlib
 import IPython.utils.io
-
+from IPython.core.getipython import get_ipython
 
 def download_file(url, path):
     try:
@@ -39,17 +37,10 @@ def check_gpu_available():
     return IPython.utils.io.ask_yes_no("Do you want to continue? [y/n]")
 
 
-def _set_public_key(user, public_key):
-    if public_key != None:
-        home_dir = pathlib.Path("/root" if user == "root" else "/home/" + user)
-        ssh_dir = home_dir / ".ssh"
-        ssh_dir.mkdir(mode=0o700, exist_ok=True)
-        auth_keys_file = ssh_dir / "authorized_keys"
-        auth_keys_file.write_text(public_key)
-        auth_keys_file.chmod(0o600)
-        if user != "root":
-            shutil.chown(ssh_dir, user)
-            shutil.chown(auth_keys_file, user)
+def run_command(setup_script):
+    for command in (setup_script.split("\n")):
+        command = command.strip()
+        get_ipython().system_raw(command)
 
 
 class AptManager:
