@@ -71,8 +71,7 @@ def config_ssh_server(public_key, msg):
     ssh_dir = home_dir / ".ssh"
     ssh_dir.mkdir(mode=0o700, exist_ok=True)
     auth_keys_file = ssh_dir / "authorized_keys"
-    for each_key in public_key:
-        auth_keys_file.write_text(f"{each_key}\n")
+    auth_keys_file.write_text("\n".join(public_key))
     auth_keys_file.chmod(0o600)
 
     # Restart SSH service
