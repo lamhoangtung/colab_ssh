@@ -57,9 +57,9 @@ class AptManager:
     def update(self):
         print("Updating apt package")
         self._cache.update()
+        self._cache.open(None)
 
     def upgrade(self):
-        self._cache.open(None)
         self._cache.upgrade()
 
     def update_upgrade(self):

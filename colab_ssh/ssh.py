@@ -28,7 +28,7 @@ def parse_public_key(public_key):
 def config_ssh_server(public_key, msg):
     apt_manager = AptManager()
     apt_manager.commit()
-    apt_manager.update_upgrade()
+    apt_manager.update()
     apt_manager.commit()
     apt_manager.installPkg("openssh-server")
     apt_manager.commit()
