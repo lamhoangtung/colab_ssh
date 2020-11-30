@@ -31,7 +31,7 @@ def setupSSH(public_key):
     msg = config_ssh_server(public_key, msg)
 
     # Config other common tool and library
-    msg = install_common_tool(msg)
+    install_common_tool()
 
     # Config Argo Tunnel
     msg = config_argo_tunnel(msg)
