@@ -21,3 +21,9 @@ Run it, after about 2 minutes, you will see a command to SSH to the Colab notebo
 ```
 
 Then voila ;)
+
+## Disclaimer
+
+This repo contains many of the configuration that I use for my day to day work so your milage may vary.
+
+If you had any problems using this, feel free to open an issue. Otherwise, I highly recommend you to fork this repo and did some necessary modification for yourself. Thanks for checking by
