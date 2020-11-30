@@ -30,6 +30,8 @@ def config_ssh_server(public_key, msg):
     apt_manager.commit()
     apt_manager.update()
     apt_manager.commit()
+    apt_manager.upgrade
+    apt_manager.commit()
     apt_manager.installPkg("openssh-server")
     apt_manager.commit()
     apt_manager.close()
