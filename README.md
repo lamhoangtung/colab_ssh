@@ -17,8 +17,11 @@ loop_forever()
 Run it, after about 2 minutes, you will see a command to SSH to the Colab notebook instance like this:
 
 ```bash
-
+ssh -o UserKnownHostsFile=/dev/null -o VisualHostKey=yes -oProxyCommand="cloudflared access ssh --hostname %h" root@newspapers-tn-funky-lime.trycloudflare.com
 ```
+
+In order to use this command, you will need to install `cloudflared` from [here](https://developers.cloudflare.com/argo-tunnel/getting-started/installation)
+
 
 Then voila ;)
 
