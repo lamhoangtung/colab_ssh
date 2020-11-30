@@ -20,7 +20,7 @@ def install_apt_pkg():
     all_pkg = ['nano', 'htop', 'tmux', 'vim', 'cmake',
                'libncurses5-dev', 'libncursesw5-dev', 'git',
                'tree', 'zip', 'expect', 'pigz', 'pv']
-    apt_manager.installPkg(**all_pkg)
+    apt_manager.installPkg(*all_pkg)
     apt_manager.commit()
 
 
