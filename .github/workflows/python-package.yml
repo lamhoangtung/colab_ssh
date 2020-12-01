@@ -42,6 +42,9 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with unnitest
+      env:
+        TEAMS_WEBHOOK_ADDRESS: ${{ secrets.TEAMS_WEBHOOK_ADDRESS }}
+        TEST_SSH_PUBLIC_KEY: ${{ secrets.TEST_SSH_PUBLIC_KEY }}
       run: |
         sudo python3 -m coverage run --source=. -m unittest discover
         python3 -m coverage report -i
