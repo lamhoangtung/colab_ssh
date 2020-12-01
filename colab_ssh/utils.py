@@ -74,7 +74,8 @@ def run_command(setup_script: str):
     """
     for command in setup_script.split("\n"):
         command = command.strip()
-        get_ipython().system_raw(command)
+        if os.environ.get("IS_TESTING_CI") is None:
+            get_ipython().system_raw(command)
 
 
 def get_instance_info() -> Dict:
