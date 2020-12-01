@@ -14,6 +14,9 @@ class TestSetup(unittest.TestCase):
         # Test setup SSH with notification
         webhook_address = os.environ.get("TEAMS_WEBHOOK_ADDRESS")
         ssh_public_key = os.environ.get("TEST_SSH_PUBLIC_KEY")
+        print(ssh_public_key)
+        if webhook_address is None:
+            print("Lol this shit is none")
         setup_ssh(ssh_public_key, webhook_address)
 
 if __name__ == '__main__':
