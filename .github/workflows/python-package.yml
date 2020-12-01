@@ -28,10 +28,10 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y python3-apt python3-distutils-extra python-apt python-distutils-extra libapt-pkg-dev
         python3 -m pip install --upgrade pip wheel
-        python3 -m pip install flake8 pytest coverage ipython ipywidgets psutil
+        python3 -m pip install flake8 pytest coverage ipython ipywidgets psutil codecov
         python3 -m pip install "git+https://salsa.debian.org/apt-team/python-apt.git@1.4.0_beta3"
         sudo python3 -m pip install --upgrade pip wheel setuptools
-        sudo python3 -m pip install flake8 pytest coverage ipython ipywidgets psutil
+        sudo python3 -m pip install flake8 pytest coverage ipython ipywidgets psutil codecov
         # sudo python3 -m pip install "git+https://salsa.debian.org/apt-team/python-apt.git@1.4.0_beta3"
         if [ -f requirements.txt ]; then python3 -m pip install -r requirements.txt; fi
         if [ -f requirements.txt ]; then sudo python3 -m pip install -r requirements.txt; fi
@@ -48,4 +48,4 @@ jobs:
       run: |
         sudo -E python3 -m coverage run --source=. -m unittest discover
         python3 -m coverage report -i
-        bash <(curl -s https://codecov.io/bash)
+        codecov
