@@ -13,7 +13,7 @@ Create a new Colab notebook with two cell with the following content:
 
 from colab_ssh import setup_ssh, loop_forever
 
-public_key = 'https://gist.githubusercontent.com/lamhoangtung/4fca574da11ef45869bdfea8062417b5/raw/320893c60a5a150f61481899201664761136fae7/authorized_keys'
+public_key = '<YOUR_PUBLIC_SSH_KEY>'
 setup_ssh(public_key)
 loop_forever()
 ```
