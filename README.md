@@ -6,8 +6,14 @@ Create SSH tunel to a running colab notebook
 [![codecov](https://codecov.io/gh/lamhoangtung/colab_ssh/branch/master/graph/badge.svg)](https://codecov.io/gh/Techainer/mlchain-python)
 [![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/lamhoangtung/colab_ssh/blob/master/LICENSE)
 
+## Prerequisite
+- This package only allow SSH public key authentication so you will need to prepare once. You might alreday had one at `~/.ssh/id_rsa.pub`. Refer [this](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server) to create a new one if you don't had once already
+- In order to connect to the SSH tunel from your machine, you will need to install `cloudflared` from [here](https://developers.cloudflare.com/argo-tunnel/getting-started/installation) into your machine 
+
+
 ## Usage
-Create a new Colab notebook with two cell with the following content:
+
+Create a new Colab notebook with a single cell with the following content:
 ```python
 !pip3 install linus_colab_ssh
 
@@ -18,14 +24,25 @@ setup_ssh(public_key)
 loop_forever()
 ```
 
-Run it, after about 2 minutes, you will see a command to SSH to the Colab notebook instance like this:
+You can use list of public key or link to a raw text file of `authorized_keys` like [this](https://gist.githubusercontent.com/lamhoangtung/4fca574da11ef45869bdfea8062417b5/raw/320893c60a5a150f61481899201664761136fae7/authorized_keys) as well
+
+Run it, after about 2 minutes, you will see something like this:
 
 ```bash
-ssh -o UserKnownHostsFile=/dev/null -o VisualHostKey=yes -oProxyCommand="cloudflared access ssh --hostname %h" root@newspapers-tn-funky-lime.trycloudflare.com
-```
-
-In order to use this command, you will need to install `cloudflared` from [here](https://developers.cloudflare.com/argo-tunnel/getting-started/installation)
-
+Command to connect to the ssh server:
+✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️
+ssh -o UserKnownHostsFile=/dev/null -o VisualHostKey=yes -oProxyCommand="cloudflared access ssh --hostname %h" root@economic-singapore-place-obtaining.trycloudflare.com
+✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️
+Or you can use the following configuration in your .ssh/config file:
+✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️
+Host colab
+	HostName economic-singapore-place-obtaining.trycloudflare.com
+	User root
+	UserKnownHostsFile /dev/null
+	VisualHostKey yes
+	StrictHostKeyChecking no
+	ProxyCommand cloudflared access ssh --hostname %h
+✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️✂️```
 
 Then voila ;)
 
