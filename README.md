@@ -1,4 +1,4 @@
-# Colab SSH (Work in progress)
+# Colab SSH
 
 Create SSH tunel to a running colab notebook
 
