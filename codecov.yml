@@ -7,3 +7,6 @@ coverage:
 
     # do not run coverage on patch nor changes
     patch: false
+  
+fixes:
+  - "::colab_ssh/"
