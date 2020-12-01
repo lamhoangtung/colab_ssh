@@ -91,7 +91,7 @@ def get_instance_info() -> Dict:
     """
     try:
         gpu_info = subprocess.run(['nvidia-smi'], stdout=subprocess.PIPE, check=False)
-        gpu_info = gpu_info.stdout.decode("utf-8")
+        gpu_info = gpu_info.stdout.decode("utf-8")  # pragma: no cover
     except FileNotFoundError:
         gpu_info = 'failed'
     if 'failed' in gpu_info:

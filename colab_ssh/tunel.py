@@ -43,7 +43,7 @@ def config_argo_tunnel(msg: str):
             text = str(response.read())
             sub = "\\ncloudflared_tunnel_user_hostnames_counts{userHostname=\"https://"
             begin = text.find(sub)
-            if begin == -1:
+            if begin == -1:  # pragma: no cover
                 time.sleep(10)
                 print("Retry reading cloudflared user hostname")
                 continue
