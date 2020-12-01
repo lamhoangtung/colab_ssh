@@ -9,7 +9,7 @@ Create SSH tunel to a running colab notebook
 ## Usage
 Create a new Colab notebook with two cell with the following content:
 ```python
-!pip3 install colab_ssh
+!pip3 install linus_colab_ssh
 
 from colab_ssh import setup_ssh, loop_forever
 
@@ -31,6 +31,6 @@ Then voila ;)
 
 ## Disclaimer
 
-This repo contains many of the configuration that I use for my day to day work so your milage may vary.
+This repo contains many of the configuration that I use for my day to day work so it might not be the best for you.
 
 If you had any problems using this, feel free to open an issue. Otherwise, I highly recommend you to fork this repo and did some necessary modification for yourself. Thanks for checking by

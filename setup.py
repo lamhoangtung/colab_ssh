@@ -18,7 +18,7 @@ def parse_requirements(filename):
 install_requires = parse_requirements('requirements.txt')
 
 setup(
-    name="colab_ssh",
+    name="linus_colab_ssh",
     version=__version__,
     description='Create SSH tunel to a running colab notebook',
     long_description=readme(),
@@ -34,7 +34,7 @@ setup(
     setup_requires=[],
     dependency_links=[],
     python_requires='>=3',
-    py_modules=['colab_ssh'],
+    py_modules=['ssh_colab'],
     classifiers=[
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Libraries',
