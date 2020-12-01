@@ -15,4 +15,7 @@ def send_notification_to_microsoft_teams(webhook_address: str, spec: Dict):
     section.addFact("Hostname", spec['hostname'])
     section.addFact("Connection command", spec['ssh_command'])
     message.addSection(section)
-    message.send()
+    try:
+        message.send()
+    except Exception as e:
+        print(f"Error sending notification to Microsoft Teams: {e}")
