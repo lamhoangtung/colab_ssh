@@ -21,7 +21,11 @@ def config_argo_tunnel(msg: str):
     """
     download_file(
         "https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz", "cloudflared.tgz")
-    shutil.unpack_archive("cloudflared.tgz")
+    try:
+        shutil.unpack_archive("cloudflared.tgz")
+    except OSError:
+        print("Seems like we already had cloudflared binary")
+        pass
     cfd_proc = subprocess.Popen(
         ["./cloudflared", "tunnel", "--url", "ssh://localhost:22",
          "--logfile", "cloudflared.log", "--metrics", "localhost:49589"],
