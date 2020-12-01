@@ -51,7 +51,7 @@ def setup_ssh(public_key, teams_webhook_address: str = None):
     print(msg)
 
 
-def loop_forever():
+def loop_forever():  # pragma: no cover
     """
     Utility function to keep the colab notebook from disconnecting the kernel.
     """
