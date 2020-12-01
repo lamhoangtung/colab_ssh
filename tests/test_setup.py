@@ -35,7 +35,7 @@ class TestSetup(unittest.TestCase):
     def test_parse_public_key(self):
         test_key = ['ssh-a', 'ssh-b', 'ssh-c']
         parsed_key = parse_public_key(test_key[0])
-        assert parsed_key == test_key[0]
+        assert parsed_key == test_key[:1]
         parsed_key = parse_public_key(test_key)
         assert parsed_key == test_key
         assert [] == parse_public_key(None)
