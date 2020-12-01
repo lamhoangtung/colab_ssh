@@ -1,5 +1,6 @@
 """Contain utils function"""
 
+import os
 import multiprocessing
 import shutil
 import subprocess
@@ -57,7 +58,11 @@ def check_gpu_available():
     else:
         print(f"This runtime was assigned to GPU: {gpu_name}")
         return True
-    return IPython.utils.io.ask_yes_no("Do you want to continue? [y/n]")
+    if os.environ.get("IS_TESTING_CI") is not None:
+        print("Testing on non GPU machine detected")
+        return True
+    else:
+        return IPython.utils.io.ask_yes_no("Do you want to continue? [y/n]")
 
 
 def run_command(setup_script: str):
