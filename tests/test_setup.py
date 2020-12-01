@@ -1,9 +1,10 @@
 import unittest
+from unittest import mock
 import os
 from colab_ssh import setup_ssh
 
 
-@unittest.mock.patch.dict(os.environ, {"IS_TESTING_CI": "TRUE"})
+@mock.patch.dict(os.environ, {"IS_TESTING_CI": "TRUE"})
 class TestSetup(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         unittest.TestCase.__init__(self, *args, **kwargs)
