@@ -2,7 +2,7 @@
 
 Create SSH tunel to a running colab notebook
 
-![build_status](https://github.com/lamhoangtung/colab_ssh/workflows/.github/workflows/python-package.yml/badge.svg)
+![build_status](https://github.com/lamhoangtung/colab_ssh/workflows/Colab%20SSH/badge.svg)
 [![codecov](https://codecov.io/gh/lamhoangtung/colab_ssh/branch/master/graph/badge.svg)](https://codecov.io/gh/Techainer/mlchain-python)
 [![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/lamhoangtung/colab_ssh/blob/master/LICENSE)
 
