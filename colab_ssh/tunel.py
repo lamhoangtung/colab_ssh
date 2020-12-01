@@ -1,3 +1,4 @@
+"""Config Argo tunnel for the SSH tunnel"""
 import shutil
 import subprocess
 import time
@@ -6,18 +7,29 @@ import urllib
 from colab_ssh.utils import download_file
 
 
-def config_argo_tunnel(msg):
+def config_argo_tunnel(msg: str):
+    """
+    Config Argo tunnel for the SSH tunnel
+
+    Parameters:
+        msg (str): Variable that contain the whole message that will be print out at the end of the setup process
+
+    Return:
+        msg (str): The message after added tunnel information and ssh command
+        ssh_command (str): The SSH command for Microsoft Teams push notification
+        hostname (str): The hostname of the server, also for Microsoft Teams push notification
+    """
     download_file(
         "https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz", "cloudflared.tgz")
     shutil.unpack_archive("cloudflared.tgz")
     cfd_proc = subprocess.Popen(
         ["./cloudflared", "tunnel", "--url", "ssh://localhost:22",
-            "--logfile", "cloudflared.log", "--metrics", "localhost:49589"],
+         "--logfile", "cloudflared.log", "--metrics", "localhost:49589"],
         stdout=subprocess.PIPE,
         universal_newlines=True
     )
     time.sleep(4)
-    if cfd_proc.poll() != None:
+    if cfd_proc.poll() is not None:
         raise RuntimeError("Failed to run cloudflared. Return code:" +
                            str(cfd_proc.returncode) + "\nSee clouldflared.log for more info.")
     hostname = None
@@ -34,7 +46,7 @@ def config_argo_tunnel(msg):
             end = text.index("\"", begin + len(sub))
             hostname = text[begin + len(sub): end]
             break
-    if hostname == None:
+    if hostname is None:
         raise RuntimeError("Failed to get user hostname from cloudflared")
 
     ssh_common_options = "-o UserKnownHostsFile=/dev/null -o VisualHostKey=yes"
@@ -48,6 +60,8 @@ def config_argo_tunnel(msg):
     msg += "✂️"*24 + "\n"
     msg += "Or you can use the following configuration in your .ssh/config file:\n"
     msg += "✂️"*24 + "\n"
-    msg += f"Host colab\n\tHostName {hostname}\n\tUser root\n\tUserKnownHostsFile /dev/null\n\tVisualHostKey yes\n\tStrictHostKeyChecking no\n\tProxyCommand cloudflared access ssh --hostname %h\n"
+    msg += f"Host colab\n\tHostName {hostname}\n\tUser root\n\tUserKnownHostsFile /dev/null\n"
+    msg += "\tVisualHostKey yes\n\tStrictHostKeyChecking no\n"
+    msg += "\tProxyCommand cloudflared access ssh --hostname %h\n"
     msg += "✂️"*24 + "\n"
     return msg, ssh_command, hostname

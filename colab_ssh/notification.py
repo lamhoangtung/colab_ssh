@@ -1,9 +1,15 @@
+"""Send push notification to Microsoft Teams using webhook. Just to manage all the instance"""
+
 from typing import Dict
 
 import pymsteams
 
 
 def send_notification_to_microsoft_teams(webhook_address: str, spec: Dict):
+    """
+    Send push notification to Microsoft Teams using webhook. Just to manage all the instance
+    """
+
     message = pymsteams.connectorcard(webhook_address)
     message.text(
         "Hi @channel, a new colab spot instance was created! Here was it configuration:")
@@ -17,5 +23,5 @@ def send_notification_to_microsoft_teams(webhook_address: str, spec: Dict):
     message.addSection(section)
     try:
         message.send()
-    except Exception as e:
-        print(f"Error sending notification to Microsoft Teams: {e}")
+    except Exception as exception:  # pylint: disable=broad-except
+        print(f"Error sending notification to Microsoft Teams: {exception}")

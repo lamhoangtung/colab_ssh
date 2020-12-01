@@ -3,8 +3,6 @@ import os
 from setuptools import setup, find_packages
 __version__ = "0.1"
 
-project = "colab_ssh"
-
 
 def readme():
     with open(os.path.join(os.path.dirname(__file__), 'README.md')) as f:
@@ -20,7 +18,7 @@ def parse_requirements(filename):
 install_requires = parse_requirements('requirements.txt')
 
 setup(
-    name=project,
+    name="colab_ssh",
     version=__version__,
     description='Create SSH tunel to a running colab notebook',
     long_description=readme(),

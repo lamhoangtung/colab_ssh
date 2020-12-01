@@ -1,3 +1,4 @@
+"""Just look at the name, it's main"""
 import time
 
 from colab_ssh.config import config_root_password, install_common_tool
@@ -7,15 +8,16 @@ from colab_ssh.tunel import config_argo_tunnel
 from colab_ssh.utils import check_gpu_available, get_instance_info
 
 
-def setupSSH(public_key, teams_webhook_address: str = None):
+def setup_ssh(public_key, teams_webhook_address: str = None):
     """
     Setup an SSH tunel to the current Colab notebook instance with ssh public key authentication
 
-    Arguments:
+    Parameters:
         public_key:
             - (str): The public key that will be able to authenticate the SSH connection
             - (List[str]): A list of public keys that will be able to authenticate the SSH connection
-            - (str): Link to a text file (authorized_keys) that cotains all the public keys that will be able to authenticate the SSH connection
+            - (str): Link to a text file (authorized_keys) that cotains all the public keys that will be
+            able to authenticate the SSH connection
         webhook_address:
             - (str): The webhook address for microsoft teams for push notification
 
@@ -24,7 +26,7 @@ def setupSSH(public_key, teams_webhook_address: str = None):
     public_key = parse_public_key(public_key)
 
     if not check_gpu_available():
-        return False
+        return
 
     # Config password for root user
     msg = ""

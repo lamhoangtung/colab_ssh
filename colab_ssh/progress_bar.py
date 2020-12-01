@@ -1,13 +1,20 @@
+# pylint: disable=missing-function-docstring
+"""
+Progress bar for Jupyter notebook
+
+https://salsa.debian.org/apt-team/python-apt
+https://apt-team.pages.debian.net/python-apt/library/index.html
+"""
+
+from IPython.core.display import display
 import apt
 import apt.debfile
 import ipywidgets
-from IPython.core.display import display
-
-# https://salsa.debian.org/apt-team/python-apt
-# https://apt-team.pages.debian.net/python-apt/library/index.html
-
 
 class NoteProgress(apt.progress.base.InstallProgress, apt.progress.base.AcquireProgress, apt.progress.base.OpProgress):
+    """
+    Progress bar for Jupyter notebook
+    """
     def __init__(self):
         apt.progress.base.InstallProgress.__init__(self)
         self._label = ipywidgets.Label()
@@ -23,7 +30,7 @@ class NoteProgress(apt.progress.base.InstallProgress, apt.progress.base.AcquireP
     def fetch(self, item):
         self._label.value = "fetch: " + item.shortdesc
 
-    def pulse(self, owner):
+    def pulse(self, owner): # pylint: disable=unused-argument
         self._float_progress.value = self.current_items / self.total_items
         return True
 
@@ -31,7 +38,7 @@ class NoteProgress(apt.progress.base.InstallProgress, apt.progress.base.AcquireP
         self._label.value = "%s: %s" % (pkg, status)
         self._float_progress.value = percent / 100.0
 
-    def update(self, percent=None):
+    def update(self, percent=None): # pylint: disable=unused-argument
         self._float_progress.value = self.percent / 100.0
         self._label.value = self.op + ": " + self.subop
 

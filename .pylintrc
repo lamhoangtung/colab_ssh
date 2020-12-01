@@ -1,0 +1,3 @@
+[MASTER]
+disable=
+    E0401, # import-error
