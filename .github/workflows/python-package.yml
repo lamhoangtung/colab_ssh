@@ -39,6 +39,6 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with unnitest
       run: |
-        python3 -m coverage run --source=. -m unittest discover
+        sudo python3 -m coverage run --source=. -m unittest discover
         python3 -m coverage report -i
         bash <(curl -s https://codecov.io/bash)
