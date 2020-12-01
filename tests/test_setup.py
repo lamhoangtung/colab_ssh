@@ -4,7 +4,8 @@ import os
 
 from psutil import test
 from colab_ssh import setup_ssh
-from colab_ssh.notification import send_notification_to_microsoft_teams, parse_public_key
+from colab_ssh.notification import send_notification_to_microsoft_teams
+from colab_ssh.ssh import parse_public_key
 
 @mock.patch.dict(os.environ, {"IS_TESTING_CI": "TRUE"})
 class TestSetup(unittest.TestCase):
