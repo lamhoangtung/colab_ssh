@@ -25,8 +25,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        apt-get update
-        apt-get install -y python3-apt
+        sudo apt-get update
+        sudo apt-get install -y python3-apt
         python3 -m pip install --upgrade pip
         python3 -m pip install flake8 pytest coverage ipython ipywidgets psutil
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
