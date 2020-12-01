@@ -28,7 +28,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y python3-apt
         python3 -m pip install --upgrade pip
-        python3 -m pip install flake8 pytest coverage ipython ipywidgets psutil
+        python3 -m pip install flake8 pytest coverage ipython ipywidgets psutil python3-apt
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
