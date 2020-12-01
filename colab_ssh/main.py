@@ -37,12 +37,13 @@ def setupSSH(public_key, teams_webhook_address: str = None):
     install_common_tool()
 
     # Config Argo Tunnel
-    msg, ssh_command = config_argo_tunnel(msg)
+    msg, ssh_command, hostname = config_argo_tunnel(msg)
 
     # Send notification to Microsoft Teams
     if teams_webhook_address is not None:
         spec = get_instance_info()
         spec['ssh_command'] = ssh_command
+        spec['hostname'] = hostname
         send_notification_to_microsoft_teams(teams_webhook_address, spec)
 
     print(msg)

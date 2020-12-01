@@ -46,4 +46,8 @@ def config_argo_tunnel(msg):
     ssh_command = f"ssh {ssh_common_options} root@{hostname}"
     msg += f"{ssh_command}\n"
     msg += "✂️"*24 + "\n"
-    return msg, ssh_command
+    msg += "Or you can use the following configuration in your .ssh/config file:\n"
+    msg += "✂️"*24 + "\n"
+    msg += f"Host colab\n\tHostName {hostname}\n\tUser root\n\tUserKnownHostsFile /dev/null\n\tVisualHostKey yes\n\tStrictHostKeyChecking no\n\tProxyCommand cloudflared access ssh --hostname %h\n"
+    msg += "✂️"*24 + "\n"
+    return msg, ssh_command, hostname

@@ -12,6 +12,7 @@ def send_notification_to_microsoft_teams(webhook_address: str, spec: Dict):
     section.addFact("CPU", spec['cpu'])
     section.addFact("RAM", spec['ram'])
     section.addFact("GPU", spec['gpu'])
+    section.addFact("Hostname", spec['hostname'])
     section.addFact("Connection command", spec['ssh_command'])
     message.addSection(section)
     message.send()
