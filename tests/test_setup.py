@@ -11,11 +11,12 @@ class TestSetup(unittest.TestCase):
         print("Running config test")
 
     def test_setup(self):
+        # Test setup SSH
         ssh_public_key = os.environ.get("TEST_SSH_PUBLIC_KEY")
         setup_ssh(ssh_public_key)
         assert 1 == 1
 
-    def test_setup_with_notifications(self):
+        # Test setup SSH with notification
         webhook_address = os.environ.get("TEAMS_WEBHOOK_ADDRESS")
         ssh_public_key = os.environ.get("TEST_SSH_PUBLIC_KEY")
         setup_ssh(ssh_public_key, webhook_address)
