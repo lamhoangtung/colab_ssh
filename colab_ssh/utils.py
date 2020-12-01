@@ -89,8 +89,11 @@ def get_instance_info() -> Dict:
             'gpu': (str) GPU name with VRAM size in GB
         }
     """
-    gpu_info = subprocess.run(['nvidia-smi'], stdout=subprocess.PIPE, check=False)
-    gpu_info = gpu_info.stdout.decode("utf-8")
+    try:
+        gpu_info = subprocess.run(['nvidia-smi'], stdout=subprocess.PIPE, check=False)
+        gpu_info = gpu_info.stdout.decode("utf-8")
+    except FileNotFoundError:
+        gpu_info = 'failed'
     if 'failed' in gpu_info:
         gpu_type = 'N/A'
         gpu_vram_gb = 0
