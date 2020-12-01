@@ -23,6 +23,8 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+        TEAMS_WEBHOOK_ADDRESS: ${{ secrets.TEAMS_WEBHOOK_ADDRESS }}
+        TEST_SSH_PUBLIC_KEY: ${{ secrets.TEST_SSH_PUBLIC_KEY }}
     - name: Install dependencies
       run: |
         sudo apt-get update
@@ -42,9 +44,6 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with unnitest
-      with:
-        TEAMS_WEBHOOK_ADDRESS: ${{ secrets.TEAMS_WEBHOOK_ADDRESS }}
-        TEST_SSH_PUBLIC_KEY: ${{ secrets.TEST_SSH_PUBLIC_KEY }}
       env:
         TEAMS_WEBHOOK_ADDRESS: ${{ secrets.TEAMS_WEBHOOK_ADDRESS }}
         TEST_SSH_PUBLIC_KEY: ${{ secrets.TEST_SSH_PUBLIC_KEY }}
