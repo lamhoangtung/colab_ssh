@@ -23,7 +23,7 @@ def config_argo_tunnel(msg: str):
         "https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz", "cloudflared.tgz")
     try:
         shutil.unpack_archive("cloudflared.tgz")
-    except OSError:
+    except OSError:  # pragma: no cover
         print("Seems like we already had cloudflared binary")
         pass
     cfd_proc = subprocess.Popen(
@@ -35,7 +35,7 @@ def config_argo_tunnel(msg: str):
     time.sleep(4)
     if cfd_proc.poll() is not None:
         raise RuntimeError("Failed to run cloudflared. Return code:" +
-                           str(cfd_proc.returncode) + "\nSee clouldflared.log for more info.")
+                           str(cfd_proc.returncode) + "\nSee clouldflared.log for more info.")  # pragma: no cover
     hostname = None
     # Sometimes it takes long time to display user host name in cloudflared metrices.
     for _ in range(20):
@@ -51,7 +51,7 @@ def config_argo_tunnel(msg: str):
             hostname = text[begin + len(sub): end]
             break
     if hostname is None:
-        raise RuntimeError("Failed to get user hostname from cloudflared")
+        raise RuntimeError("Failed to get user hostname from cloudflared")  # pragma: no cover
 
     ssh_common_options = "-o UserKnownHostsFile=/dev/null -o VisualHostKey=yes"
     ssh_common_options += " -oProxyCommand=\"cloudflared access ssh --hostname %h\""

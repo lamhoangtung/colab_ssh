@@ -15,7 +15,7 @@ def send_notification_to_microsoft_teams(webhook_address: str, spec: Dict):
     if os.environ.get("IS_TESTING_CI") is not None:
         message.text(
             "Hi @channel, a new CI/CD test for the colab ssh pip package was initialized! Here was it configuration:")
-    else:
+    else:  # pragma: no cover
         message.text(
             "Hi @channel, a new colab spot instance was created! Here was it configuration:")
 
@@ -28,5 +28,5 @@ def send_notification_to_microsoft_teams(webhook_address: str, spec: Dict):
     message.addSection(section)
     try:
         message.send()
-    except Exception as exception:  # pylint: disable=broad-except
+    except Exception as exception:  # pylint: disable=broad-except 
         print(f"Error sending notification to Microsoft Teams: {exception}")

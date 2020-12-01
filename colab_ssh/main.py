@@ -26,7 +26,7 @@ def setup_ssh(public_key, teams_webhook_address: str = None):
     public_key = parse_public_key(public_key)
 
     if not check_gpu_available():
-        return
+        return  # pragma: no cover
 
     # Config password for root user
     msg = ""

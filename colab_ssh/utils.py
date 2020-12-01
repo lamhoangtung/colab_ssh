@@ -27,7 +27,7 @@ def download_file(url: str, path: str):
         with urllib.request.urlopen(url) as response:
             with open(path, 'wb') as outfile:
                 shutil.copyfileobj(response, outfile)
-    except Exception:
+    except Exception:  # pragma: no cover
         print("Failed to download ", url)
         raise
 
@@ -39,9 +39,9 @@ def get_gpu_name():
     try:
         process = subprocess.run(["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"],
                                 stdout=subprocess.PIPE, universal_newlines=True, check=False)
-        if process.returncode != 0:
+        if process.returncode != 0:  # pragma: no cover
             return None
-        return process.stdout.strip()
+        return process.stdout.strip()  # pragma: no cover
     except FileNotFoundError:
         return None
 
@@ -52,17 +52,17 @@ def check_gpu_available():
     gpu_name = get_gpu_name()
     if gpu_name is None:
         print("This is not a runtime with GPU")
-    elif gpu_name == "Tesla K80":
+    elif gpu_name == "Tesla K80":  # pragma: no cover
         print("Warning! GPU of your assigned virtual machine is Tesla K80.")
         print("You might get better GPU by reseting the runtime.")
-    else:
+    else:  # pragma: no cover
         print(f"This runtime was assigned to GPU: {gpu_name}")
         return True
     if os.environ.get("IS_TESTING_CI") is not None:
         print("Testing on non GPU machine detected")
         return True
     else:
-        return IPython.utils.io.ask_yes_no("Do you want to continue? [y/n]")
+        return IPython.utils.io.ask_yes_no("Do you want to continue? [y/n]")  # pragma: no cover
 
 
 def run_command(setup_script: str):
@@ -75,7 +75,7 @@ def run_command(setup_script: str):
     for command in setup_script.split("\n"):
         command = command.strip()
         if os.environ.get("IS_TESTING_CI") is None:
-            get_ipython().system_raw(command)
+            get_ipython().system_raw(command)  # pragma: no cover
 
 
 def get_instance_info() -> Dict:
@@ -97,7 +97,7 @@ def get_instance_info() -> Dict:
     if 'failed' in gpu_info:
         gpu_type = 'N/A'
         gpu_vram_gb = 0
-    else:
+    else:  # pragma: no cover
         raw_gpu_info = gpu_info.split('\n')
         gpu_info = [each for each in raw_gpu_info if '0  Tesla' in each][0]
         gpu_type = None
@@ -149,7 +149,7 @@ class AptManager:
         """
         Similar to `sudo apt upgrade`
         """
-        self._cache.upgrade()
+        self._cache.upgrade()  # pragma: no cover
 
     def commit(self):
         """
