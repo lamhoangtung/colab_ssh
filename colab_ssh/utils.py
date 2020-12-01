@@ -35,12 +35,14 @@ def get_gpu_name():
     """
     Get current GPU name
     """
-    process = subprocess.run(["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"],
-                             stdout=subprocess.PIPE, universal_newlines=True, check=False)
-    if process.returncode != 0:
+    try:
+        process = subprocess.run(["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"],
+                                stdout=subprocess.PIPE, universal_newlines=True, check=False)
+        if process.returncode != 0:
+            return None
+        return process.stdout.strip()
+    except FileNotFoundError:
         return None
-    return process.stdout.strip()
-
 
 def check_gpu_available():
     """
