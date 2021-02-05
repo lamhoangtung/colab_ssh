@@ -8,7 +8,7 @@ Create SSH tunel to a running colab notebook
 
 ## Prerequisite
 - This package only allow SSH public key authentication so you will need to prepare once. You might already had one at `~/.ssh/id_rsa.pub`. Refer [this](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server) to create a new one if you don't had once already
-- In order to connect to the SSH tunel from your machine, you will need to install `cloudflared` from [here](https://developers.cloudflare.com/argo-tunnel/getting-started/installation)
+- In order to connect to the SSH tunel from your machine, you will need to install `cloudflared` from [here](https://developers.cloudflare.com/argo-tunnel/downloads)
 
 
 ## Usage
@@ -46,6 +46,8 @@ Host colab
 ```
 
 Then voila ;)
+
+Please noted that you must keep the kernel webpage connected to avoid Colab disconnect your kernel early.
 
 ## Disclaimer
 
