@@ -48,7 +48,7 @@ def install_pip_dependencies():
     Install pip dependencies that I use everyday
     """
     print("Installing pip dependencies")
-    command = "pip3 install imgaug trains ipdb"
+    command = "pip3 install imgaug clearml ipdb"
     run_command(command)
 
 
