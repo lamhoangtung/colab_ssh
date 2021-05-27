@@ -3,7 +3,7 @@ import shutil
 import subprocess
 import time
 import urllib
-
+import random
 from colab_ssh.utils import download_file
 
 
@@ -33,7 +33,7 @@ def config_argo_tunnel(msg: str):
     )
     cfd_proc = subprocess.Popen(
         ["./cloudflared", "tunnel", "--url", "ssh://localhost:22",
-         "--logfile", "cloudflared.log", "--metrics", "localhost:49589"],
+         "--logfile", "cloudflared.log", "--metrics", "localhost:{}".format(random.randint(8000, 50000))],
         stdout=subprocess.PIPE,
         universal_newlines=True
     )
