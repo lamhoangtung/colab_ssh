@@ -3,7 +3,6 @@ import shutil
 import subprocess
 import time
 import urllib
-
 from colab_ssh.utils import download_file
 
 
@@ -26,11 +25,7 @@ def config_argo_tunnel(msg: str):
     except OSError:  # pragma: no cover
         print("Seems like we already had cloudflared binary")
         pass
-    cfd_proc = subprocess.Popen(
-        ["./cloudflared", "update"],
-        stdout=subprocess.PIPE,
-        universal_newlines=True
-    )
+    subprocess.run(["./cloudflared", "update"])
     cfd_proc = subprocess.Popen(
         ["./cloudflared", "tunnel", "--url", "ssh://localhost:22",
          "--logfile", "cloudflared.log", "--metrics", "localhost:49589"],
