@@ -27,6 +27,11 @@ def config_argo_tunnel(msg: str):
         print("Seems like we already had cloudflared binary")
         pass
     cfd_proc = subprocess.Popen(
+        ["./cloudflared", "update"],
+        stdout=subprocess.PIPE,
+        universal_newlines=True
+    )
+    cfd_proc = subprocess.Popen(
         ["./cloudflared", "tunnel", "--url", "ssh://localhost:22",
          "--logfile", "cloudflared.log", "--metrics", "localhost:49589"],
         stdout=subprocess.PIPE,
