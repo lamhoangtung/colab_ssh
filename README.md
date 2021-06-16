@@ -2,6 +2,8 @@
 
 Create SSH tunel to a running colab notebook
 
+[![PyPI version](https://badge.fury.io/py/linus-colab-ssh.svg)](https://badge.fury.io/py/linus-colab-ssh)
+[![Downloads](https://pepy.tech/badge/linus-colab-ssh)](https://pepy.tech/project/linus-colab-ssh)
 ![build_status](https://github.com/lamhoangtung/colab_ssh/workflows/Colab%20SSH/badge.svg)
 [![codecov](https://codecov.io/gh/lamhoangtung/colab_ssh/branch/master/graph/badge.svg)](https://codecov.io/gh/Techainer/mlchain-python)
 [![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/lamhoangtung/colab_ssh/blob/master/LICENSE)
@@ -15,7 +17,7 @@ Create SSH tunel to a running colab notebook
 
 Create a new Colab notebook with a single cell with the following content:
 ```python
-!pip3 install linus_colab_ssh
+!pip3 install linus-colab-ssh
 
 from colab_ssh import setup_ssh, loop_forever
 
