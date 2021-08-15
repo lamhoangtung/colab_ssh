@@ -24,7 +24,7 @@ def send_notification_to_mattermost(webhook_address: str, spec: Dict[str, str]):
     text += f"|--------------|----------------------------------------------------------------|\n"
     text += f"| **RAM**      | {spec['ram']}                                                  |\n"
     text += f"| **GPU**      | {spec['gpu']}                                                  |\n"
-    text += f"| **Hostname** | {spec['hostname']}                                             |\n"
+    text += f"| **Hostname** | `{spec['hostname']}`                                           |\n"
     text += "\n"
     text += "To **connect** to it, use the following configuration in your `~/.ssh/config` file:\n"
     text += f"```ssh-config\n{spec['ssh_config']}\n```\n"
