@@ -43,7 +43,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with unnitest
       env:
-        TEAMS_WEBHOOK_ADDRESS: ${{ secrets.TEAMS_WEBHOOK_ADDRESS }}
+        MATTERMOST_WEBHOOK_ADDRESS: ${{ secrets.MATTERMOST_WEBHOOK_ADDRESS }}
         TEST_SSH_PUBLIC_KEY: ${{ secrets.TEST_SSH_PUBLIC_KEY }}
       run: |
         sudo -E python3 -m coverage run --source=. -m unittest discover

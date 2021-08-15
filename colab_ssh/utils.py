@@ -1,16 +1,16 @@
 """Contain utils function"""
 
-import os
 import multiprocessing
+import os
 import shutil
 import subprocess
 import urllib.request
 from typing import Dict
 
+import apt
 import IPython.utils.io
 from IPython.core.getipython import get_ipython
 from psutil import virtual_memory
-import apt
 
 from colab_ssh.progress_bar import NoteProgress
 
@@ -78,7 +78,7 @@ def run_command(setup_script: str):
             get_ipython().system_raw(command)  # pragma: no cover
 
 
-def get_instance_info() -> Dict:
+def get_instance_info() -> Dict[str, str]:
     """
     Get current instance information
 
@@ -104,18 +104,18 @@ def get_instance_info() -> Dict:
         possible_gpu_type = ['P100', 'K80', 'T4', 'V100']
         for each in possible_gpu_type:
             if each in gpu_info:
-                gpu_type = 'NVIDIA Tesla {}'.format(each)
+                gpu_type = f'NVIDIA **Tesla {each}**'
                 break
         gpu_info = [each for each in raw_gpu_info if 'MiB' in each]
         gpu_vram_gb = int(gpu_info[0].split(
             '|')[-3].split('/')[-1].strip().replace('MiB', ''))/1024
         if gpu_type is not None:
-            gpu_type = "{} - {:.2f} GB".format(gpu_type, gpu_vram_gb)
+            gpu_type = "{} - **{:.2f}** GB".format(gpu_type, gpu_vram_gb)
     total_ram = virtual_memory().total / 1e9
     return {
-        'cpu':  f"{multiprocessing.cpu_count()} cores",
+        'cpu':  f"**{multiprocessing.cpu_count()}** cores",
         'gpu': gpu_type,
-        'ram': "{:.2f} GB".format(total_ram),
+        'ram': "**{:.2f}** GB".format(total_ram),
     }
 
 

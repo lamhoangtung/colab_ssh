@@ -1,32 +1,46 @@
-"""Send push notification to Microsoft Teams using webhook. Just to manage all the instance"""
+"""Send push notification to Mattermost Channel using webhook. Just to manage all the instance"""
 
+import json
 import os
 from typing import Dict
 
-import pymsteams
+import requests
+
+COLAB_USER_NAME = 'colab'
+COLAB_USER_ICON_LINK = 'https://colab.research.google.com/img/colab_favicon_256px.png'
 
 
-def send_notification_to_microsoft_teams(webhook_address: str, spec: Dict):
+def send_notification_to_mattermost(webhook_address: str, spec: Dict[str, str]):
     """
-    Send push notification to Microsoft Teams using webhook. Just to manage all the instance
+    Send push notification to Mattermost using webhook. Just to manage all the instance
     """
-
-    message = pymsteams.connectorcard(webhook_address)
+    text = ""
     if os.environ.get("IS_TESTING_CI") is not None:
-        message.text(
-            "Hi @channel, a new CI/CD test for the colab ssh pip package was initialized! Here was it configuration:")
+        text += "Hi @channel, a new CI/CD test for the Colab SSH pip package was initialized! Here was it configuration:"
     else:  # pragma: no cover
-        message.text(
-            "Hi @channel, a new colab spot instance was created! Here was it configuration:")
-
-    section = pymsteams.cardsection()
-    section.addFact("CPU", spec['cpu'])
-    section.addFact("RAM", spec['ram'])
-    section.addFact("GPU", spec['gpu'])
-    section.addFact("Hostname", spec['hostname'])
-    section.addFact("Connection command", spec['ssh_command'])
-    message.addSection(section)
+        text += "Hi @channel, a new Colab spot instance was created :tada::tada::tada:! Here was it configuration:"
+    text += "\n\n"
+    text += f"| **CPU**      | {spec['cpu']}                                                  |\n"
+    text += f"|--------------|----------------------------------------------------------------|\n"
+    text += f"| **RAM**      | {spec['ram']}                                                  |\n"
+    text += f"| **GPU**      | {spec['gpu']}                                                  |\n"
+    text += f"| **Hostname** | {spec['hostname']}                                             |\n"
+    text += "\n"
+    text += "To **connect** to it, use the following configuration in your `~/.ssh/config` file:\n"
+    text += f"```ssh-config\n{spec['ssh_config']}\n```\n"
+    text += "Don't forget to **comment** to this post to **claim your colab instance** now, these thing don't really grow on tree ;). ***Happy coding!***\n"
+    payload = {
+        "username": COLAB_USER_NAME,
+        "icon_url": COLAB_USER_ICON_LINK,
+        "text": text
+    }
+    payload = json.dumps(payload)
+    headers = {
+        'Content-Type': 'application/json'
+    }
     try:
-        message.send()
-    except Exception as exception:  # pylint: disable=broad-except 
-        print(f"Error sending notification to Microsoft Teams: {exception}")
+        response = requests.request(
+            "POST", webhook_address, headers=headers, data=payload)
+        response.raise_for_status()
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)

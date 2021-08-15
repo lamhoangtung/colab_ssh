@@ -1,11 +1,11 @@
+import os
 import unittest
 from unittest import mock
-import os
 
-from psutil import test
 from colab_ssh import setup_ssh
-from colab_ssh.notification import send_notification_to_microsoft_teams
+from colab_ssh.notification import send_notification_to_mattermost
 from colab_ssh.ssh import parse_public_key
+
 
 @mock.patch.dict(os.environ, {"IS_TESTING_CI": "TRUE"})
 class TestSetup(unittest.TestCase):
@@ -15,7 +15,7 @@ class TestSetup(unittest.TestCase):
 
     def test_setup(self):
         # Test setup SSH with notification
-        webhook_address = os.environ.get("TEAMS_WEBHOOK_ADDRESS")
+        webhook_address = os.environ.get("MATTERMOST_WEBHOOK_ADDRESS")
         ssh_public_key = os.environ.get("TEST_SSH_PUBLIC_KEY")
         if webhook_address is None:
             print("Lol this shit is none")
@@ -30,7 +30,7 @@ class TestSetup(unittest.TestCase):
             'ssh_command': 'lul',
             'hostname': 'lol'
         }
-        send_notification_to_microsoft_teams(webhook_address, spec)
+        send_notification_to_mattermost(webhook_address, spec)
 
     def test_parse_public_key(self):
         test_key = ['ssh-a', 'ssh-b', 'ssh-c']
@@ -43,6 +43,7 @@ class TestSetup(unittest.TestCase):
             _ = parse_public_key('lol')
         except ValueError as ex:
             pass
+
 
 if __name__ == '__main__':
     unittest.main()
