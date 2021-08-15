@@ -3,10 +3,12 @@ import shutil
 import subprocess
 import time
 import urllib
+from typing import Tuple
+
 from colab_ssh.utils import download_file
 
 
-def config_argo_tunnel(msg: str):
+def config_argo_tunnel(msg: str) -> Tuple[str, str, str, str]:
     """
     Config Argo tunnel for the SSH tunnel
 
@@ -15,8 +17,9 @@ def config_argo_tunnel(msg: str):
 
     Return:
         msg (str): The message after added tunnel information and ssh command
-        ssh_command (str): The SSH command for Microsoft Teams push notification
-        hostname (str): The hostname of the server, also for Microsoft Teams push notification
+        ssh_command (str): The SSH command for Mattermost push notification
+        ssh_config (str): The SSH config block for Mattermost push notification
+        hostname (str): The hostname of the server, also for Mattermost push notification
     """
     download_file(
         "https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz", "cloudflared.tgz")
@@ -51,7 +54,8 @@ def config_argo_tunnel(msg: str):
             hostname = text[begin + len(sub): end]
             break
     if hostname is None:
-        raise RuntimeError("Failed to get user hostname from cloudflared")  # pragma: no cover
+        raise RuntimeError(
+            "Failed to get user hostname from cloudflared")  # pragma: no cover
 
     ssh_common_options = "-o UserKnownHostsFile=/dev/null -o VisualHostKey=yes"
     ssh_common_options += " -oProxyCommand=\"cloudflared access ssh --hostname %h\""
@@ -64,8 +68,9 @@ def config_argo_tunnel(msg: str):
     msg += "✂️"*24 + "\n"
     msg += "Or you can use the following configuration in your .ssh/config file:\n"
     msg += "✂️"*24 + "\n"
-    msg += f"Host colab\n\tHostName {hostname}\n\tUser root\n\tUserKnownHostsFile /dev/null\n"
-    msg += "\tVisualHostKey yes\n\tStrictHostKeyChecking no\n"
-    msg += "\tProxyCommand cloudflared access ssh --hostname %h\n"
+    ssh_config = f"Host colab\n\tHostName {hostname}\n\tUser root\n\tUserKnownHostsFile /dev/null\n"
+    ssh_config += "\tVisualHostKey yes\n\tStrictHostKeyChecking no\n"
+    ssh_config += "\tProxyCommand cloudflared access ssh --hostname %h\n"
+    msg += ssh_config
     msg += "✂️"*24 + "\n"
-    return msg, ssh_command, hostname
+    return msg, ssh_command, ssh_config, hostname

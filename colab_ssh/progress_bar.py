@@ -6,10 +6,11 @@ https://salsa.debian.org/apt-team/python-apt
 https://apt-team.pages.debian.net/python-apt/library/index.html
 """
 
-from IPython.core.display import display
 import apt
 import apt.debfile
 import ipywidgets
+from IPython.core.display import display
+
 
 class NoteProgress(apt.progress.base.InstallProgress, apt.progress.base.AcquireProgress, apt.progress.base.OpProgress):
     """
