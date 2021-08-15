@@ -28,6 +28,8 @@ loop_forever()
 
 You can use list of public key or link to a raw text file of `authorized_keys` like [this](https://gist.githubusercontent.com/lamhoangtung/4fca574da11ef45869bdfea8062417b5/raw/320893c60a5a150f61481899201664761136fae7/authorized_keys) as well
 
+Optinally, you can also specify a Mattermost Webhook URL with `mattermost_webhook_address` when calling `setup_ssh` to send a push notification to your Mattermost channel when the SSH tunel is ready.
+
 Run it, after about 2 minutes, you will see something like this:
 
 ```bash
