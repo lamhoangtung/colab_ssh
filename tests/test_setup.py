@@ -27,7 +27,7 @@ class TestSetup(unittest.TestCase):
             'cpu': 'hihi',
             'gpu': 'haha',
             'ram': 'hoho',
-            'ssh_command': 'lul',
+            'ssh_config': 'lul',
             'hostname': 'lol'
         }
         send_notification_to_mattermost(webhook_address, spec)
