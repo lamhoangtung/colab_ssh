@@ -42,5 +42,5 @@ def send_notification_to_mattermost(webhook_address: str, spec: Dict[str, str]):
         response = requests.request(
             "POST", webhook_address, headers=headers, data=payload)
         response.raise_for_status()
-    except requests.exceptions.HTTPError as err:
-        raise SystemExit(err)
+    except requests.exceptions.HTTPError as ex:
+        print(f"Cannot send notification to Mattermost: {ex}")
