@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 import os
-from setuptools import setup, find_packages
-__version__ = "0.1.4"
+
+from setuptools import find_packages, setup
+
+__version__ = "0.1.5"
 
 
-def readme():
+def read_me():
     with open(os.path.join(os.path.dirname(__file__), 'README.md')) as f:
         return f.read()
 
@@ -13,7 +15,7 @@ setup(
     name="linus_colab_ssh",
     version=__version__,
     description='Create SSH tunel to a running colab notebook',
-    long_description=readme(),
+    long_description=read_me(),
     long_description_content_type='text/markdown',
     url='https://github.com/lamhoangtung/colab_ssh',
     author='Hoang Tung Lam',
