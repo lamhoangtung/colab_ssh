@@ -21,8 +21,6 @@ def config_argo_tunnel(msg: str) -> Tuple[str, str, str, str]:
         hostname (str): The hostname of the server, also for Mattermost push notification
     """
 
-    ""
-
     download_file(
         "https://github.com/cloudflare/cloudflared/releases/download/2021.9.2/cloudflared-linux-amd64", "cloudflared")
     subprocess.run(["./cloudflared", "update"])
