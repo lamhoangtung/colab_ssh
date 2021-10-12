@@ -4,7 +4,7 @@ import time
 import urllib
 from typing import Tuple
 
-from colab_ssh.utils import download_file
+from colab_ssh.utils import download_file, make_executable
 
 
 def config_argo_tunnel(msg: str) -> Tuple[str, str, str, str]:
@@ -23,6 +23,7 @@ def config_argo_tunnel(msg: str) -> Tuple[str, str, str, str]:
 
     download_file(
         "https://github.com/cloudflare/cloudflared/releases/download/2021.9.2/cloudflared-linux-amd64", "cloudflared")
+    make_executable("cloudflared")
     subprocess.run(["./cloudflared", "update"])
     cfd_proc = subprocess.Popen(
         ["./cloudflared", "tunnel", "--url", "ssh://localhost:22",
