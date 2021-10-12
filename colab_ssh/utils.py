@@ -32,18 +32,25 @@ def download_file(url: str, path: str):
         raise
 
 
+def make_executable(path):
+    mode = os.stat(path).st_mode
+    mode |= (mode & 0o444) >> 2    # copy R bits to X
+    os.chmod(path, mode)
+
+
 def get_gpu_name():
     """
     Get current GPU name
     """
     try:
         process = subprocess.run(["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"],
-                                stdout=subprocess.PIPE, universal_newlines=True, check=False)
+                                 stdout=subprocess.PIPE, universal_newlines=True, check=False)
         if process.returncode != 0:  # pragma: no cover
             return None
         return process.stdout.strip()  # pragma: no cover
     except FileNotFoundError:
         return None
+
 
 def check_gpu_available():
     """
@@ -90,7 +97,8 @@ def get_instance_info() -> Dict[str, str]:
         }
     """
     try:
-        gpu_info = subprocess.run(['nvidia-smi'], stdout=subprocess.PIPE, check=False)
+        gpu_info = subprocess.run(
+            ['nvidia-smi'], stdout=subprocess.PIPE, check=False)
         gpu_info = gpu_info.stdout.decode("utf-8")  # pragma: no cover
     except FileNotFoundError:
         gpu_info = 'failed'
